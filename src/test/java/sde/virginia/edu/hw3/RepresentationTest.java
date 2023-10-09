@@ -81,6 +81,19 @@ class RepresentationTest {
         assertEquals(7, representation.getAllocatedRepresentatives());
     }
 
+    @Test
+    void totalPopulation() {
+        var ohio = new State("Ohio", 10);
+        var virginia = new State("Virginia", 15);
+        var representation = new Representation(new HashMap<>(Map.of(
+                ohio, 5, virginia, 2
+        )));
+
+        assertEquals(25, representation.getTotalPopulation());
+    }
+
+
+
 
     @Test
     void getAllocatedRepresentatives_empty() {
