@@ -10,6 +10,9 @@ public class HuntingtonHillMethod implements ApportionmentMethod {
         for (State state : states) {
             stateRepresentatives.put(state, 1);
         }
+        if(states.size()>targetRepresentatives){
+            throw new UnsolvableApportionmentException(this, states, targetRepresentatives);
+        }
 
         int totalRepresentativesAssigned = states.size();
         while (totalRepresentativesAssigned < targetRepresentatives) {
