@@ -27,4 +27,15 @@ public class HuntingtonHillMethodTest {
         assertEquals(7, representation.getRepresentativesFor(va));
         assertEquals(2, representation.getRepresentativesFor(wv));
     }
+
+    @Test
+    void getRepresentation_impossible() {
+        var de = new State("Delaware", 1000000);
+        var md = new State("Maryland", 1000000);
+        var states = List.of(de, md);
+        var huntingtonHillMethod = new HuntingtonHillMethod();
+
+        assertThrows(
+                UnsolvableApportionmentException.class, () -> huntingtonHillMethod.getRepresentation(states, 1));
+    }
 }
