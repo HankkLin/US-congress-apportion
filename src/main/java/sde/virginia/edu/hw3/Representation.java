@@ -20,6 +20,11 @@ import java.util.stream.Collectors;
 public class Representation {
     private final Map<State, Integer> stateRepresentatives;
 
+    public int getTotalPopulation() {
+        return totalPopulation;
+    }
+
+    private int totalPopulation = 0;
     /**
      * Creates an empty representation. That is, no states have been given any representatives.
      */
@@ -34,6 +39,9 @@ public class Representation {
      */
     protected Representation(Map<State, Integer> stateRepresentatives) {
         this.stateRepresentatives = stateRepresentatives;
+        for (Map.Entry<State, Integer> entry : this.stateRepresentatives.entrySet()) {
+            totalPopulation += entry.getKey().getPopulation();
+        }
     }
 
     /**
