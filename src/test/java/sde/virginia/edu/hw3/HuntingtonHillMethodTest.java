@@ -17,8 +17,8 @@ public class HuntingtonHillMethodTest {
 
         var states = List.of(de, md, pa, va, wv);
 
-        var jeffersonMethod = new JeffersonMethod();
-        var representation = jeffersonMethod.getRepresentation(states, 25);
+        var huntingtonHillMethod = new HuntingtonHillMethod();
+        var representation = huntingtonHillMethod.getRepresentation(states, 25);
 
         assertEquals(5, representation.getStates().size());
         assertEquals(1, representation.getRepresentativesFor(de));

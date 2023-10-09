@@ -13,6 +13,9 @@ package sde.virginia.edu.hw3;
  * @author Will-McBurney
  */
 public record State(String name, int population) {
+    public int getPopulation() {
+        return population;
+    }
 
     @Override
     public String toString() {
