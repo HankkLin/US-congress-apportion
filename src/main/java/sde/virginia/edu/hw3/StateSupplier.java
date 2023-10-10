@@ -22,6 +22,8 @@ public interface StateSupplier {
     List<State> getStates();
 }
 
+
+
 /*
  * Copyright (c) 2023. Paul "Will" McBurney <br>
  *
