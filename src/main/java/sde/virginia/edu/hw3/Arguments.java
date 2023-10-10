@@ -50,7 +50,7 @@ public class Arguments {
     private final List<String> arguments;
     private String method;
     private String format;
-
+    private DisplayOrder sequence;
     /**
      * Constructor for {@link Arguments}
      *
@@ -161,9 +161,18 @@ public class Arguments {
         else{
             format = "alphabet";
         }
+        if(arguments.contains("--ascending")||arguments.contains("--a")){
+            sequence = DisplayOrder.ASCENDING;
+        }
+        else if(arguments.contains("--descending")||arguments.contains("--d")){
+            sequence = DisplayOrder.DESCENDING;
+        }
         new RepresentationFormatFactory();
         var representationFormatFactory = new RepresentationFormatFactory();
-        return representationFormatFactory.getFormat(format);
+        if(sequence==null){
+            return representationFormatFactory.getFormat(format);
+        }
+        return representationFormatFactory.getFormat(format, sequence);
     }
 }
 
