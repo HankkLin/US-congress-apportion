@@ -48,6 +48,8 @@ public class Arguments {
      */
     public static final int DEFAULT_REPRESENTATIVE_COUNT = 435;
     private final List<String> arguments;
+    private String method;
+    private String format;
 
     /**
      * Constructor for {@link Arguments}
@@ -76,13 +78,8 @@ public class Arguments {
      */
     public StateSupplier getStateSupplier() {
         var filename = arguments.get(0);
-        if (filename.toLowerCase().endsWith("csv")) {
-            return new CSVStateReader(filename);
-        }
-        if (filename.toLowerCase().endsWith("xlsx") || filename.toLowerCase().endsWith("xls")) {
-            return new SpreadsheetStateReader(filename);
-        }
-        throw new UnsupportedFileFormatException(filename);
+        var stateSupplierFactory = new StateSupplierFactory();
+        return stateSupplierFactory.getStateSupplier(filename);
     }
 
     /**
@@ -109,7 +106,6 @@ public class Arguments {
             return DEFAULT_REPRESENTATIVE_COUNT;
         }
     }
-
     /**
      * Determine the {@link ApportionmentMethod apportionment method} to use from the command-line arguments.
      * Specifically, if the arguments contain <code>--adams</code>, then the {@link AdamsMethod Adams apportionment
@@ -120,9 +116,22 @@ public class Arguments {
      */
     public ApportionmentMethod getApportionmentMethod() {
         if (arguments.contains("--adams")) {
-            return new AdamsMethod();
+            method = "adams";
         }
-        return new JeffersonMethod();
+        else if (arguments.contains("--jefferson")) {
+            method = "jefferson";
+        }
+        else if (arguments.contains("--huntington")) {
+            method = "huntington";
+        }
+        else{
+            method = "jefferson";
+            //not sure which one should be the default.
+            //The test file show jefferson is default, but the docs says it is huntington
+        }
+        new ApportionmentMethodFactory();
+        var apportionmentMethodFactory = new ApportionmentMethodFactory();
+        return apportionmentMethodFactory.getMethod(method);
     }
 
     /**
@@ -141,12 +150,20 @@ public class Arguments {
      */
     public RepresentationFormat getRepresentationFormat() {
         if (arguments.contains("--population")) {
-            if (arguments.contains("-d") || arguments.contains("--descending")) {
-                return new PopulationFormat(DisplayOrder.DESCENDING);
-            }
-            return new PopulationFormat(DisplayOrder.ASCENDING);
+            format = "population";
         }
-        return new AlphabeticalFormat();
+        else if (arguments.contains("--alphabet")) {
+            format = "alphabet";
+        }
+        else if (arguments.contains("--benefit")) {
+            format = "benefit";
+        }
+        else{
+            format = "alphabet";
+        }
+        new RepresentationFormatFactory();
+        var representationFormatFactory = new RepresentationFormatFactory();
+        return representationFormatFactory.getFormat(format);
     }
 }
 

@@ -32,7 +32,6 @@ public class HuntingtonHillMethod implements ApportionmentMethod {
             totalRepresentativesAssigned++;
         }
         var representation = new Representation(stateRepresentatives);
-        //System.out.println(representation);
 
         return representation;
     }
