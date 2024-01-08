@@ -1,3 +1,6 @@
+This is a project for course CS3140 in University of Virginia.\
+Generated from [here](https://github.com/cs-3140-fa23/hw3-starter-repo).\
+
 ## To Run
 
 ### Prerequisites
